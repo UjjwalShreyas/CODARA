@@ -24,12 +24,13 @@ const validators = {
       throw new AppError('GitHub URL required', 400)
     }
 
-    const githubRegex = /^(https?:\/\/)?(www\.)?github\.com\/[\w.-]+\/[\w.-]+\/?$/
-    if (!githubRegex.test(url)) {
+    const githubRegex = /^(?:https?:\/\/)?(?:www\.)?github\.com\/([\w.-]+)\/([\w.-]+)\/?$/
+    const match = url.match(githubRegex)
+    if (!match) {
       throw new AppError('Invalid GitHub URL format', 400)
     }
 
-    return true
+    return { owner: match[1], repo: match[2] }
   },
 
   validateFileSize: (size, limit) => {

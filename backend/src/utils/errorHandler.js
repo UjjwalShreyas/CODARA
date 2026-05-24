@@ -13,10 +13,16 @@ const errorHandler = (err, req, res, next) => {
 
   logger.error(err.message, err)
 
+  // Sanitize message for 500 errors in production to avoid leaking internal details
+  const isDev = process.env.NODE_ENV === 'development'
+  const clientMessage = (!isDev && err.statusCode === 500) 
+    ? 'An unexpected internal server error occurred.' 
+    : err.message
+
   res.status(err.statusCode).json({
     success: false,
-    error: err.message,
-    ...(process.env.NODE_ENV === 'development' && { stack: err.stack })
+    error: clientMessage,
+    ...(isDev && { stack: err.stack })
   })
 }
 

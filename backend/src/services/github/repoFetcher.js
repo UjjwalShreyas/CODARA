@@ -14,6 +14,10 @@ const repoFetcher = {
   async fetchRepoFiles(owner, repo) {
     logger.log('Fetching repo via ZIP archive', { owner, repo })
 
+    let zipPath = null
+    let extractTo = null
+    let extracted = false
+
     try {
       const repoInfo = await octokit.rest.repos.get({ owner, repo })
       const branch = repoInfo.data.default_branch
@@ -28,24 +32,31 @@ const repoFetcher = {
       }
 
       const buffer = await response.arrayBuffer()
-      const zipPath = path.join(os.tmpdir(), `codara_${owner}_${repo}_${Date.now()}.zip`)
-      const extractTo = path.join(os.tmpdir(), `codara_ext_${owner}_${repo}_${Date.now()}`)
+      zipPath = path.join(os.tmpdir(), `codara_${owner}_${repo}_${Date.now()}.zip`)
+      extractTo = path.join(os.tmpdir(), `codara_ext_${owner}_${repo}_${Date.now()}`)
 
       fs.writeFileSync(zipPath, Buffer.from(buffer))
 
       await zipExtractor.extractZip(zipPath, extractTo)
-      fs.unlinkSync(zipPath) // clean up zip
+      extracted = true
+      
+      fs.unlinkSync(zipPath) // clean up zip immediately after extraction
+      zipPath = null
 
       const filesArray = await zipExtractor.readAllFiles(extractTo)
       
-      // Cleanup the extracted folder asynchronously
-      zipExtractor.cleanup(extractTo)
-
       logger.success(`Fetched ${filesArray.length} files from GitHub ZIP`)
       return filesArray
     } catch (error) {
       logger.error('Failed to fetch repo via ZIP', error)
       throw error
+    } finally {
+      if (zipPath && fs.existsSync(zipPath)) {
+        try { fs.unlinkSync(zipPath) } catch (_) {}
+      }
+      if (extracted && extractTo) {
+        try { await zipExtractor.cleanup(extractTo) } catch (_) {}
+      }
     }
   }
 }

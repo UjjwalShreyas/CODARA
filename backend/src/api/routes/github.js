@@ -13,11 +13,7 @@ const logger = require('../../utils/logger')
 const router = express.Router()
 
 router.post('/analyze', validateGithubInput, asyncHandler(async (req, res) => {
-  const { repoUrl } = req.body
-
-  const urlParts = repoUrl.replace(/\/$/, '').split('/')
-  const owner = urlParts[urlParts.length - 2]
-  const repo = urlParts[urlParts.length - 1]
+  const { repoUrl, owner, repo } = req.body
 
   logger.log(`Analyzing GitHub repo: ${owner}/${repo}`)
 

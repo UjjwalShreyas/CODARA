@@ -51,146 +51,140 @@ router.post('/', upload.single('file'), asyncHandler(async (req, res) => {
 
   logger.log('ZIP upload received', { size: req.file.size, zipPath })
 
-  // Step 1: Extract ZIP
-  await zipExtractor.extractZip(zipPath, extractTo)
-  logger.success('ZIP extracted')
-
-  // Step 2: Read all files
-  const allFiles = await zipExtractor.readAllFiles(extractTo)
-  logger.success(`Read ${allFiles.length} files from ZIP`)
-
-  // Step 3: Filter files
-  const filteredFiles = fileFilter.filterFiles(allFiles)
-  logger.success(`Filtered to ${filteredFiles.length} files`)
-
-  // Step 4: Build folder tree
-  const folderTree = buildFolderTree(filteredFiles)
-
-  // Step 5: Detect tech stack
-  const techStack = detectTechStack(filteredFiles)
-
-  // Step 6: Count stats
-  const stats = countStats(filteredFiles)
-
-  // Step 7: Static analysis
-  const allIssues = []
-  let codeFiles = filteredFiles
-    .filter(f => isCoreCodeFile(f.path))
-    .sort((a, b) => getFileImportanceScore(b.path) - getFileImportanceScore(a.path))
-    .slice(0, 8)
-
-  // Fallback if no core files found
-  if (codeFiles.length === 0) {
-    codeFiles = filteredFiles.filter(f => isCodeFile(f.path)).slice(0, 20)
-  }
-
-  for (const file of codeFiles) {
-    try {
-      const lang = languageDetector.detect(file.content)
-      if (lang === 'unknown') continue
-      const analyzer = new StaticAnalyzer(lang)
-      const result = analyzer.analyze(file.content)
-      allIssues.push(...result.issues.map(issue => ({
-        ...issue,
-        file: file.path
-      })))
-    } catch (e) {
-      logger.warn(`Static analysis failed for ${file.path}`)
-    }
-  }
-
-  // Step 8: Combined code sample for AI
-  const MAX_TOTAL_LENGTH = 5000;
-  let currentLength = 0;
-  const combinedCodeArr = [];
-  
-  for (const f of codeFiles) {
-    if (currentLength >= MAX_TOTAL_LENGTH) break;
-    let content = f.content || '';
-    const remaining = MAX_TOTAL_LENGTH - currentLength;
-    if (content.length > remaining) {
-      content = content.slice(0, remaining) + '\n...[Content Truncated]...';
-    }
-    combinedCodeArr.push(`// File: ${f.path}\n${content}`);
-    currentLength += content.length;
-  }
-  const combinedCode = combinedCodeArr.join('\n\n');
-
-  const detectedLang = techStack.length > 0 ? techStack.join(', ') : 'code';
-
-  const explanationGen = new ExplanationGenerator()
-  const interviewGen = new InterviewQuestionGenerator()
-  const roadmapGen = new LearningRoadmapGenerator()
-
-  let explanations, questions, roadmap
   try {
-    explanations = await explanationGen.generateAll(combinedCode, detectedLang, req.file.originalname, folderTree)
+    // Step 1: Extract ZIP
+    await zipExtractor.extractZip(zipPath, extractTo)
+    logger.success('ZIP extracted')
+
+    // Step 2: Read all files
+    const allFiles = await zipExtractor.readAllFiles(extractTo)
+    logger.success(`Read ${allFiles.length} files from ZIP`)
+
+    // Step 3: Filter files
+    const filteredFiles = fileFilter.filterFiles(allFiles)
+    logger.success(`Filtered to ${filteredFiles.length} files`)
+
+    // Step 4: Build folder tree
+    const folderTree = buildFolderTree(filteredFiles)
+
+    // Step 5: Detect tech stack
+    const techStack = detectTechStack(filteredFiles)
+
+    // Step 6: Count stats
+    const stats = countStats(filteredFiles)
+
+    // Step 7: Static analysis
+    const allIssues = []
+    let codeFiles = filteredFiles
+      .filter(f => isCoreCodeFile(f.path))
+      .sort((a, b) => getFileImportanceScore(b.path) - getFileImportanceScore(a.path))
+      .slice(0, 8)
+
+    // Fallback if no core files found
+    if (codeFiles.length === 0) {
+      codeFiles = filteredFiles.filter(f => isCodeFile(f.path)).slice(0, 20)
+    }
+
+    for (const file of codeFiles) {
+      try {
+        const lang = languageDetector.detect(file.content)
+        if (lang === 'unknown') continue
+        const analyzer = new StaticAnalyzer(lang)
+        const result = analyzer.analyze(file.content)
+        allIssues.push(...result.issues.map(issue => ({
+          ...issue,
+          file: file.path
+        })))
+      } catch (e) {
+        logger.warn(`Static analysis failed for ${file.path}`)
+      }
+    }
+
+    // Step 8: Combined code sample for AI
+    const MAX_TOTAL_LENGTH = 5000;
+    let currentLength = 0;
+    const combinedCodeArr = [];
+    
+    for (const f of codeFiles) {
+      if (currentLength >= MAX_TOTAL_LENGTH) break;
+      let content = f.content || '';
+      const remaining = MAX_TOTAL_LENGTH - currentLength;
+      if (content.length > remaining) {
+        content = content.slice(0, remaining) + '\n...[Content Truncated]...';
+      }
+      combinedCodeArr.push(`// File: ${f.path}\n${content}`);
+      currentLength += content.length;
+    }
+    const combinedCode = combinedCodeArr.join('\n\n');
+
+    const detectedLang = techStack.length > 0 ? techStack.join(', ') : 'code';
+
+    const explanationGen = new ExplanationGenerator()
+    const interviewGen = new InterviewQuestionGenerator()
+    const roadmapGen = new LearningRoadmapGenerator()
+
+    const explanations = await explanationGen.generateAll(combinedCode, detectedLang, req.file.originalname, folderTree)
     await new Promise(resolve => setTimeout(resolve, 500))
 
-    questions = await interviewGen.generate(combinedCode, detectedLang)
+    const questions = await interviewGen.generate(combinedCode, detectedLang)
     await new Promise(resolve => setTimeout(resolve, 500))
 
-    roadmap = await roadmapGen.generate(allIssues, techStack)
-  } catch (aiError) {
-    // Cleanup temp files on error
-    zipExtractor.cleanup(extractTo)
-    zipExtractor.cleanup(zipPath)
+    const roadmap = await roadmapGen.generate(allIssues, techStack)
 
-    if (aiError.isRateLimit) {
+    logger.success('ZIP analysis complete')
+
+    res.json({
+      success: true,
+      data: {
+        type: 'zip',
+        filename: req.file.originalname,
+        timestamp: new Date().toISOString(),
+
+        // Stats
+        fileCount: stats.fileCount,
+        folderCount: stats.folderCount,
+        componentCount: stats.componentCount,
+        routeCount: stats.routeCount,
+
+        // Tech
+        techStack,
+        architecture: detectArchitecture(filteredFiles),
+        architectureExplanation: 'Analyzed from uploaded ZIP file.',
+        folderTree,
+        patterns: detectPatterns(filteredFiles),
+
+        // Issues
+        issues: allIssues.slice(0, 20),
+        issueCount: allIssues.length,
+
+        // AI content
+        explanationBeginner: explanations.explanationBeginner,
+        explanationIntermediate: explanations.explanationIntermediate,
+        explanationAdvanced: explanations.explanationAdvanced,
+
+        // Interview
+        interviewQuestions: questions,
+
+        // Roadmap
+        weaknesses: roadmap.weaknesses || [],
+        learningRoadmap: roadmap.learningRoadmap || [],
+        nextSteps: roadmap.nextSteps || ''
+      }
+    })
+  } catch (error) {
+    if (error.isRateLimit) {
       return res.status(429).json({
         success: false,
         error: 'RATE_LIMITED',
-        message: `AI services are temporarily busy. Please try again in ${aiError.retryTime}.`,
-        retryTime: aiError.retryTime
+        message: `AI services are temporarily busy. Please try again in ${error.retryTime}.`,
+        retryTime: error.retryTime
       })
     }
-    throw aiError
+    throw error
+  } finally {
+    // Always clean up extracted files
+    try { await zipExtractor.cleanup(extractTo) } catch (_) { /* non-blocking */ }
   }
-
-  // Step 9: Cleanup temp files on success
-  zipExtractor.cleanup(extractTo)
-  zipExtractor.cleanup(zipPath)
-
-  logger.success('ZIP analysis complete')
-
-  res.json({
-    success: true,
-    data: {
-      type: 'zip',
-      filename: req.file.originalname,
-      timestamp: new Date().toISOString(),
-
-      // Stats
-      fileCount: stats.fileCount,
-      folderCount: stats.folderCount,
-      componentCount: stats.componentCount,
-      routeCount: stats.routeCount,
-
-      // Tech
-      techStack,
-      architecture: detectArchitecture(filteredFiles),
-      architectureExplanation: 'Analyzed from uploaded ZIP file.',
-      folderTree,
-      patterns: detectPatterns(filteredFiles),
-
-      // Issues
-      issues: allIssues.slice(0, 20),
-      issueCount: allIssues.length,
-
-      // AI content
-      explanationBeginner: explanations.explanationBeginner,
-      explanationIntermediate: explanations.explanationIntermediate,
-      explanationAdvanced: explanations.explanationAdvanced,
-
-      // Interview
-      interviewQuestions: questions,
-
-      // Roadmap
-      weaknesses: roadmap.weaknesses || [],
-      learningRoadmap: roadmap.learningRoadmap || [],
-      nextSteps: roadmap.nextSteps || ''
-    }
-  })
 }))
 
 module.exports = router
