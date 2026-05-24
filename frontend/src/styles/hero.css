@@ -1,0 +1,66 @@
+.hero {
+  background-color: var(--primary);
+  color: white;
+  padding: 12rem 0 8rem;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-content {
+  max-width: 800px;
+}
+
+.hero-content h1 {
+  font-family: var(--font-serif);
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  color: white;
+}
+
+.hero-content p {
+  font-family: var(--font-sans);
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 600px;
+  margin-bottom: 3rem;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.hero-badges {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  opacity: 0.9;
+}
+
+@media (min-width: 768px) {
+  .hero-badges {
+    flex-direction: row;
+    gap: 2rem;
+  }
+}
+
+.hero-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-family: var(--font-sans);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.hero-badge-icon {
+  color: var(--accent);
+}

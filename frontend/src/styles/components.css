@@ -1,0 +1,74 @@
+/* Shared component styles */
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Typography */
+h1 { font-size: 3.5rem; font-weight: 700; }
+h2 { font-size: 2.5rem; font-weight: 600; margin-bottom: 2rem; }
+h3 { font-size: 1.5rem; font-weight: 600; }
+h4 { font-size: 1.25rem; font-weight: 600; }
+
+p {
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.section-label {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+code {
+  background-color: var(--border);
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.25rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9em;
+  color: var(--secondary);
+}
+
+/* Loading spinner */
+.spinner {
+  border: 3px solid var(--border);
+  border-top: 3px solid var(--primary);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 2rem auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Error message */
+.error-message {
+  background-color: rgba(192, 57, 43, 0.05);
+  border-left: 4px solid var(--error);
+  padding: 1rem;
+  border-radius: 0.25rem;
+  color: var(--error);
+  margin: 1rem 0;
+}
+
+/* Success message */
+.success-message {
+  background-color: rgba(45, 122, 79, 0.05);
+  border-left: 4px solid var(--success);
+  padding: 1rem;
+  border-radius: 0.25rem;
+  color: var(--success);
+  margin: 1rem 0;
+}

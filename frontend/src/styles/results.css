@@ -1,0 +1,229 @@
+.results-page {
+  padding: 6rem 2rem 2rem;
+  min-height: 100vh;
+  background-color: var(--bg-light);
+}
+
+.back-btn {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border);
+  padding: 0.75rem 1.5rem;
+  margin-bottom: 2rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  color: var(--text-dark);
+}
+
+.back-btn:hover {
+  background-color: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+/* ── Tab Navigation Menu ── */
+.menu {
+  padding: 0.5rem;
+  background-color: var(--bg-surface);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px 0 rgba(0, 0, 0, 0.075);
+  gap: 0.5rem;
+  margin: 2rem 0;
+  border: 1px solid var(--border);
+}
+
+.link {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 56px;
+  height: 50px;
+  border-radius: 8px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  transform-origin: center left;
+  transition: width 0.2s ease-in, background-color 0.2s ease;
+  text-decoration: none;
+  color: var(--text-dark);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.link::before {
+  position: absolute;
+  z-index: -1;
+  content: "";
+  display: block;
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  transform: translateX(100%);
+  transition: transform 0.2s ease-in;
+  transform-origin: center right;
+  background-color: var(--primary);
+}
+
+.link:hover,
+.link:focus,
+.link.active {
+  outline: 0;
+  width: 160px;
+  color: white;
+}
+
+.link:hover::before,
+.link.active::before {
+  transform: translateX(0);
+}
+
+.link:hover .link-title,
+.link.active .link-title {
+  transform: translateX(0);
+  opacity: 1;
+  color: white;
+}
+
+.link:hover .link-icon svg,
+.link.active .link-icon svg {
+  stroke: white;
+}
+
+.link-icon {
+  width: 24px;
+  height: 24px;
+  display: block;
+  flex-shrink: 0;
+  position: absolute;
+  left: 16px;
+}
+
+.link-icon svg {
+  width: 24px;
+  height: 24px;
+  stroke: var(--primary);
+  transition: stroke 0.2s ease;
+}
+
+.link-title {
+  transform: translateX(100%);
+  transition: transform 0.2s ease-in, color 0.2s ease-in;
+  transform-origin: center right;
+  display: block;
+  text-align: center;
+  text-indent: 24px;
+  width: 100%;
+  opacity: 0;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: white;
+  white-space: nowrap;
+}
+
+/* ── Tab Content ── */
+.tab-content {
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Cards ── */
+.card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: var(--text-dark);
+  font-weight: 700;
+}
+
+/* ── Loading overlay ── */
+.loading-overlay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  gap: 1.5rem;
+}
+
+.loading-overlay p {
+  color: var(--text-light);
+  font-size: 1rem;
+  text-align: center;
+  max-width: 400px;
+}
+
+.spinner {
+  border: 4px solid var(--bg-light);
+  border-top: 4px solid var(--primary);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ── Error message ── */
+.error-message {
+  background-color: rgba(192, 57, 43, 0.08);
+  border-left: 4px solid var(--danger, #c0392b);
+  padding: 1rem 1.5rem;
+  border-radius: 0.5rem;
+  color: #c0392b;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .results-page {
+    padding: 5rem 1rem 2rem;
+  }
+
+  .menu {
+    justify-content: flex-start;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    border-radius: 10px;
+    padding: 0.4rem;
+  }
+
+  .link {
+    width: 48px;
+    height: 44px;
+    flex-shrink: 0;
+  }
+
+  .link:hover,
+  .link.active {
+    width: 140px;
+  }
+}

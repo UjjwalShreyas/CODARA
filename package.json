@@ -1,0 +1,29 @@
+{
+  "name": "codara",
+  "version": "1.0.0",
+  "description": "AI-powered code analysis platform",
+  "private": true,
+  "scripts": {
+    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install && cd ..",
+    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build:all": "cd backend && npm run build && cd ../frontend && npm run build",
+    "build:backend": "cd backend && npm run build",
+    "build:frontend": "cd frontend && npm run build",
+    "test": "echo \"Run tests from backend or frontend folders\"",
+    "setup:env": "cd backend && cp .env.example .env && cd ../frontend && cp .env.example .env && echo \"✅ .env files created. Add your API keys!\"",
+    "clean": "rm -rf backend/node_modules frontend/node_modules"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  },
+  "keywords": [
+    "code-analysis",
+    "ai",
+    "education",
+    "interview-prep"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}

@@ -1,0 +1,66 @@
+.card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.card.hoverable {
+  cursor: pointer;
+}
+
+.card.hoverable:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary);
+}
+
+.card-title {
+  font-size: 1.3rem;
+  margin: 0 0 1rem 0;
+  color: var(--text-dark);
+}
+
+.card-content {
+  color: var(--text-light);
+}
+
+.card-content p {
+  margin: 0 0 1rem 0;
+}
+
+.card-content ul,
+.card-content ol {
+  margin: 1rem 0;
+  padding-left: 2rem;
+}
+
+.card-content li {
+  margin-bottom: 0.5rem;
+}
+
+.card-content code {
+  background-color: var(--bg-light);
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.25rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9em;
+  color: var(--primary);
+}
+
+.card.error {
+  background-color: rgba(239, 68, 68, 0.1);
+  border-color: var(--danger);
+}
+
+.card.success {
+  background-color: rgba(16, 185, 129, 0.1);
+  border-color: var(--success);
+}
+
+.card.warning {
+  background-color: rgba(245, 158, 11, 0.1);
+  border-color: var(--accent);
+}

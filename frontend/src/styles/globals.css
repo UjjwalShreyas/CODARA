@@ -1,0 +1,176 @@
+@import './variables.css';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transition: color 0.2s, background-color 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+html {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-light);
+  color: var(--text-primary);
+  line-height: 1.7;
+  font-size: 18px;
+  background-image: 
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cdefs%3E%3ClinearGradient id='c1' x1='100%25' y1='100%25' x2='0%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='rgba(0,0,0,0.15)'/%3E%3Cstop offset='100%25' stop-color='transparent'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='100' cy='100' r='1.5' fill='rgba(0,0,0,0.25)'/%3E%3Cpolygon points='99,101 101,99 70,70' fill='url(%23c1)'/%3E%3Ccircle cx='40' cy='30' r='1' fill='rgba(0,0,0,0.15)'/%3E%3Cpolygon points='39.5,30.5 40.5,29.5 20,10' fill='url(%23c1)'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cdefs%3E%3ClinearGradient id='c1' x1='100%25' y1='100%25' x2='0%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='rgba(0,0,0,0.15)'/%3E%3Cstop offset='100%25' stop-color='transparent'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='100' cy='100' r='1.5' fill='rgba(0,0,0,0.25)'/%3E%3Cpolygon points='99,101 101,99 70,70' fill='url(%23c1)'/%3E%3Ccircle cx='40' cy='30' r='1' fill='rgba(0,0,0,0.15)'/%3E%3Cpolygon points='39.5,30.5 40.5,29.5 20,10' fill='url(%23c1)'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cdefs%3E%3ClinearGradient id='c1' x1='100%25' y1='100%25' x2='0%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='rgba(0,0,0,0.15)'/%3E%3Cstop offset='100%25' stop-color='transparent'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='100' cy='100' r='1.5' fill='rgba(0,0,0,0.25)'/%3E%3Cpolygon points='99,101 101,99 70,70' fill='url(%23c1)'/%3E%3Ccircle cx='40' cy='30' r='1' fill='rgba(0,0,0,0.15)'/%3E%3Cpolygon points='39.5,30.5 40.5,29.5 20,10' fill='url(%23c1)'/%3E%3C/svg%3E");
+  background-size: 160px 160px, 240px 240px, 400px 400px;
+  animation: cometParallax 20s linear infinite;
+}
+
+@keyframes cometParallax {
+  0% { background-position: 0px 0px, 50px 100px, 150px 200px; }
+  100% { background-position: 1600px 1600px, 1250px 1300px, 950px 1000px; }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  color: inherit;
+  line-height: 1.2;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+button {
+  font-family: var(--font-sans);
+  cursor: pointer;
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.875rem 2rem;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+button.primary {
+  background-color: var(--primary);
+  color: white;
+}
+
+button.primary:hover {
+  background-color: #660000;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+button.secondary {
+  background-color: var(--secondary);
+  color: var(--primary);
+  border: 1px solid var(--border);
+}
+
+button.secondary:hover {
+  background-color: #f0f0f0;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+button.accent {
+  background-color: var(--accent);
+  color: white;
+}
+
+button.accent:hover {
+  background-color: #8b0000;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+button.outline {
+  background-color: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+
+button.outline:hover {
+  background-color: rgba(139, 0, 0, 0.05);
+  transform: translateY(-2px);
+}
+
+button.outline-white {
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+}
+
+button.outline-white:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+button.white-solid {
+  background-color: white;
+  color: var(--primary);
+  border: 2px solid white;
+}
+
+button.white-solid:hover {
+  background-color: #f8f8f8;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+input, textarea {
+  font-family: var(--font-sans);
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  color: var(--text-primary);
+  background-color: var(--bg-surface);
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
+}
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}

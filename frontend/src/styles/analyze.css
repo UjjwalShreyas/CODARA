@@ -1,0 +1,68 @@
+.analyze-page {
+  padding: 6rem 2rem 2rem;
+  min-height: 100vh;
+  background-color: var(--bg-light);
+  background-image: 
+    linear-gradient(var(--blueprint-line-main) 1px, transparent 1px),
+    linear-gradient(90deg, var(--blueprint-line-main) 1px, transparent 1px),
+    linear-gradient(var(--blueprint-line-faint) 1px, transparent 1px),
+    linear-gradient(90deg, var(--blueprint-line-faint) 1px, transparent 1px);
+  background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+  animation: blueprintPan 40s linear infinite;
+}
+
+@keyframes blueprintPan {
+  0% { background-position: 0px 0px, 0px 0px, 0px 0px, 0px 0px; }
+  100% { background-position: 100px 100px, 100px 100px, 100px 100px, 100px 100px; }
+}
+
+.analyze-page h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: var(--text-dark);
+}
+
+.tabs {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  margin: 2rem 0;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Base tab button style */
+.action-btn {
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  border: 2px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  outline: none;
+}
+
+/* Hover state (Red Outline) */
+.action-btn:hover {
+  background-color: var(--bg-light);
+  border-color: var(--primary);
+}
+
+/* Active state (Solid Red) */
+.action-btn.active {
+  background-color: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+}
+
+/* Hover state while Active */
+.action-btn.active:hover {
+  background-color: var(--accent);
+  border-color: var(--accent);
+}

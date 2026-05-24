@@ -1,0 +1,182 @@
+.bauhaus-container {
+  --ui-bg: transparent;
+  --ui-text: var(--text-primary);
+  --ui-accent: var(--primary);
+  --ui-border: var(--text-primary);
+  --bauhaus-blue: #457b9d;
+  --bauhaus-yellow: #e9c46a;
+
+  background: var(--ui-bg);
+  padding: 10px 15px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-family: "Inter", "Helvetica", sans-serif;
+  color: var(--ui-text);
+  margin-bottom: 1rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.bauhaus-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-left: 5px solid var(--ui-border);
+  padding-left: 16px;
+  z-index: 2;
+}
+
+.bauhaus-header {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.bauhaus-header .num {
+  font-size: 1rem;
+  font-weight: 900;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.bauhaus-header .title {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: 700;
+}
+
+.radio-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.radio-item {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.radio-item:hover {
+  transform: translateX(5px);
+}
+
+.radio-item input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.selector-box {
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--ui-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  position: relative;
+  background: transparent;
+  transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.shape {
+  width: 0;
+  height: 0;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  opacity: 0;
+}
+
+.shape-circle {
+  border-radius: 50%;
+  background: var(--ui-accent);
+}
+
+.shape-square {
+  background: var(--bauhaus-blue);
+}
+
+.shape-triangle {
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 12px solid var(--bauhaus-yellow);
+  background: transparent !important;
+}
+
+.shape-diamond {
+  background: #2a9d8f;
+  transform: rotate(45deg);
+}
+
+/* Checked States */
+.radio-item input:checked + .selector-box {
+  background: var(--ui-border);
+}
+
+.radio-item input:checked + .selector-box .shape {
+  opacity: 1;
+  width: 12px;
+  height: 12px;
+}
+
+.radio-item input:checked + .selector-box .shape-triangle {
+  width: 0;
+  height: 0;
+  transform: translateY(-1px);
+}
+
+.radio-item input:checked + .selector-box .shape-diamond {
+  width: 10px;
+  height: 10px;
+}
+
+.label-text {
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  transition: color 0.3s ease;
+}
+
+.radio-item input:checked ~ .label-text {
+  color: var(--ui-accent);
+}
+
+/* Bauhaus Decorative Elements */
+.bauhaus-decoration {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.line-v {
+  position: absolute;
+  width: 3px;
+  height: 80px;
+  background: var(--bauhaus-yellow);
+  top: 10px;
+  right: 20px;
+}
+
+.line-h {
+  position: absolute;
+  width: 60px;
+  height: 8px;
+  background: var(--bauhaus-blue);
+  bottom: 20px;
+  right: 5px;
+}
