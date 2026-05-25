@@ -27,10 +27,8 @@ function sanitizeString(input) {
 function containsMaliciousPayload(obj) {
   const dangerous = [
     '__proto__',
-    'constructor',
-    'prototype',
-    '$gt', '$gte', '$lt', '$lte', '$ne', '$in', '$nin', '$regex',  // NoSQL operators
-    '&&', '||', '$(', '`',  // shell meta-characters
+    '$gt', '$gte', '$lt', '$lte', '$ne', '$in', '$nin', '$regex',
+    '&&', '||', '$(',
   ]
 
   const json = JSON.stringify(obj).toLowerCase()
