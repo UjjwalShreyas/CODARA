@@ -66,3 +66,22 @@
   background-color: var(--accent);
   border-color: var(--accent);
 }
+
+/* ── Analyze Page Mobile ── */
+@media (max-width: 768px) {
+  .analyze-page {
+    padding: 5rem 1rem 2rem;
+  }
+  .analyze-page h1 {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+  }
+  .tabs {
+    gap: 0.5rem;
+    margin: 1.5rem 0;
+  }
+  .action-btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+}

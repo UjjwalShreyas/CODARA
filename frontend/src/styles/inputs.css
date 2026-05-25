@@ -224,3 +224,30 @@
   border: none;
   box-shadow: none;
 }
+
+/* ── Input Forms Mobile ── */
+@media (max-width: 768px) {
+  .input-form {
+    padding: 1.5rem;
+    margin: 1.5rem auto;
+  }
+  .tabs {
+    gap: 0;
+  }
+  .tab-btn {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+  .file-label {
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+  .form-group .code-textarea {
+    min-height: 200px;
+    font-size: 0.85rem;
+    padding: 1rem;
+  }
+  .editor-header .filename {
+    font-size: 0.75rem;
+  }
+}

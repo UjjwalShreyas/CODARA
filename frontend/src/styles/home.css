@@ -169,16 +169,173 @@
   width: calc(100% - 30px);
 }
 
+/* ── Hamburger Button ── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1100;
+}
+
+.hamburger-line {
+  display: block;
+  width: 24px;
+  height: 2.5px;
+  background-color: var(--text-primary);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.hamburger.open .hamburger-line:nth-child(1) {
+  transform: translateY(7.5px) rotate(45deg);
+}
+.hamburger.open .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.open .hamburger-line:nth-child(3) {
+  transform: translateY(-7.5px) rotate(-45deg);
+}
+
+/* ── Mobile Controls (theme toggle + hamburger) ── */
+.navbar-mobile-controls {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ── Mobile Menu Overlay ── */
+.mobile-menu-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.mobile-menu-overlay.active {
+  display: block;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ── Mobile Slide-Down Menu ── */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 70px;
+  left: 0;
+  right: 0;
+  background-color: var(--bg-surface);
+  border-bottom: 1px solid var(--border);
+  flex-direction: column;
+  padding: 1rem 1.5rem 1.5rem;
+  gap: 0.25rem;
+  z-index: 1001;
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+.mobile-menu.open {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.mobile-menu a {
+  display: block;
+  padding: 0.875rem 1rem;
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 1.05rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.mobile-menu a:hover,
+.mobile-menu a.active {
+  background-color: rgba(158, 0, 0, 0.08);
+  color: var(--primary);
+}
+
+.mobile-menu .mobile-cta {
+  margin-top: 0.75rem;
+  width: 100%;
+  text-align: center;
+  padding: 0.875rem;
+  font-size: 1rem;
+}
+
+/* ── Mobile Breakpoint ── */
 @media (max-width: 768px) {
-  .navbar-links {
-    gap: 1rem;
-    font-size: 0.9rem;
+  .navbar {
+    height: 70px;
   }
-  .navbar-links button {
-    display: none; /* Hide button on very small screens to save space */
+  .navbar-desktop {
+    display: none !important;
+  }
+  .navbar-mobile-controls {
+    display: flex;
+  }
+  .hamburger {
+    display: flex;
+  }
+  .mobile-menu {
+    display: flex;
   }
   .navbar-logo {
     font-size: 1.25rem;
+  }
+
+  /* Footer responsive */
+  .footer {
+    padding: 2.5rem 0 1.5rem;
+  }
+  .footer-content {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .footer-links a {
+    margin-left: 0;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+    font-size: 0.85rem;
+  }
+
+  /* Section spacing */
+  .single-color-theme .section {
+    padding: 3.5rem 0;
+  }
+
+  /* Languages grid */
+  .languages-grid {
+    gap: 1rem;
+  }
+  .languages-grid span {
+    font-size: 1rem;
   }
 }
 
@@ -494,4 +651,74 @@
   padding-top: 2rem;
   display: flex;
   justify-content: space-between;
+}
+
+/* ── Home Sections Mobile ── */
+@media (max-width: 768px) {
+  /* Features section */
+  .features-list {
+    gap: 3rem;
+  }
+  .feature-row {
+    gap: 1.5rem;
+  }
+  .feature-text h3 {
+    font-size: 1.5rem;
+  }
+  .feature-text p {
+    font-size: 1rem;
+  }
+
+  /* Mock windows */
+  .mock-code-window, .mock-alert-window, .mock-qa-window {
+    padding: 1rem;
+  }
+  .mock-code-window pre {
+    font-size: 0.8rem;
+  }
+  .mock-alert-window strong {
+    font-size: 1rem;
+  }
+  .mock-qa-window strong {
+    font-size: 1rem;
+  }
+
+  /* How It Works */
+  .process-timeline {
+    gap: 2.5rem;
+  }
+  .step-number-large {
+    font-size: 3.5rem;
+  }
+  .step-content h3 {
+    font-size: 1.35rem;
+  }
+  .mock-terminal {
+    padding: 0.75rem;
+    font-size: 0.8rem;
+  }
+  .mock-terminal code {
+    font-size: 0.75rem;
+    word-break: break-all;
+  }
+
+  /* Manifesto */
+  .manifesto-section {
+    padding: 2.5rem 0 1.5rem;
+  }
+  .manifesto-title {
+    font-size: 1.75rem;
+  }
+  .manifesto-text {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  /* Bottom CTA */
+  .bottom-cta h2 {
+    font-size: 1.5rem;
+  }
+  .bottom-cta p {
+    font-size: 1rem;
+  }
 }
