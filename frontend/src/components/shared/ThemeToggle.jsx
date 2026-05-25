@@ -542,7 +542,7 @@ export const ThemeToggleButton = ({
         alignItems: 'center',
         justifyContent: 'center',
       }}
-      onClick={toggleTheme}
+      onClick={(e) => { e.stopPropagation(); toggleTheme(); }}
       aria-label="Toggle theme"
     >
       <span className="sr-only" style={{ display: 'none' }}>Toggle theme</span>

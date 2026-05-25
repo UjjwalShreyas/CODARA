@@ -180,7 +180,7 @@ input:focus, textarea:focus {
   body {
     font-size: 16px;
   }
-  button {
+  button:not(.hamburger) {
     padding: 0.75rem 1.5rem;
   }
-}
+}
