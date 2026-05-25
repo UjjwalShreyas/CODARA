@@ -25,26 +25,26 @@ app.use(helmet({
 }))
 
 // CORS: restrict to known origins
+
 const allowedOrigins = [
-  'http://localhost:5173',     // Vite dev server
-  'http://localhost:3000',     // fallback dev port
-  process.env.FRONTEND_URL    // production frontend URL from env
+  'http://localhost:5173',
+  'http://localhost:3000',
+  process.env.FRONTEND_URL
 ].filter(Boolean)
 
 app.use(cors({
   origin: (origin, callback) => {
-    // Allow requests with no origin (server-to-server, curl, Postman)
     if (!origin) return callback(null, true)
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true)
-    }
+    // Allow any vercel.app subdomain
+    if (origin.endsWith('.vercel.app')) return callback(null, true)
+    if (allowedOrigins.includes(origin)) return callback(null, true)
     securityLogger.logSuspiciousActivity(origin, 'CORS_REJECTED', { origin })
     return callback(new Error('Not allowed by CORS'))
   },
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
-  maxAge: 600 // preflight cache: 10 min
+  maxAge: 600
 }))
 
 // Global rate limiter: 100 requests per 15 min window
