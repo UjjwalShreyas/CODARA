@@ -1,5 +1,5 @@
-const API_BASE = '/api'
 
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
 const api = {
   async analyzeSnippet(code, language) {
     const response = await fetch(`${API_BASE}/analyze`, {
