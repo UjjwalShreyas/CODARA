@@ -1,18 +1,28 @@
 :root {
   /* Colors - Pure Red & White Theme */
-  --primary: #9e0000;      /* pure dark red */
-  --secondary: #ffffff;    /* pure white */
-  --accent: #cc0000;       /* pure bright red */
-  --bg-light: #fdfdfd;     /* almost pure white */
-  --bg-surface: #ffffff;   /* Surface white */
-  --text-primary: #1a1a1a; /* Text Primary (for light backgrounds) */
-  --text-secondary: #5a5a5a;/* Text Secondary (for light backgrounds) */
+  --primary: #9e0000;
+  /* pure dark red */
+  --secondary: #ffffff;
+  /* pure white */
+  --accent: #cc0000;
+  /* pure bright red */
+  --bg-light: #fdfdfd;
+  /* almost pure white */
+  --bg-surface: #ffffff;
+  /* Surface white */
+  --text-primary: #1a1a1a;
+  /* Text Primary (for light backgrounds) */
+  --text-secondary: #5a5a5a;
+  /* Text Secondary (for light backgrounds) */
   --text-dark: #111827;
   --text-light: #6b7280;
   --bg-hero: #9e0000;
-  --border: #e6e6e6;       /* Border */
-  --success: #2d7a4f;      /* Success */
-  --error: #c0392b;        /* Error */
+  --border: #e6e6e6;
+  /* Border */
+  --success: #2d7a4f;
+  /* Success */
+  --error: #c0392b;
+  /* Error */
   --blueprint-line-main: rgba(0, 0, 0, 0.08);
   --blueprint-line-faint: rgba(0, 0, 0, 0.03);
 
@@ -28,13 +38,13 @@
   --spacing-xl: 2rem;
   --spacing-2xl: 3rem;
   --spacing-3xl: 5rem;
-  
+
   /* Border radius */
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
   --radius-xl: 1rem;
-  
+
   /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -57,7 +67,7 @@
   --border: #333333;
   --blueprint-line-main: rgba(255, 255, 255, 0.08);
   --blueprint-line-faint: rgba(255, 255, 255, 0.03);
-  
+
   /* Shadows */
   --shadow-hover: 0 6px 20px rgba(255, 50, 50, 0.2);
 }

@@ -20,7 +20,7 @@ export default function Footer() {
         </div>
         <div className="footer-bottom">
           <span>© 2025 CODARA</span>
-          <span>Built by Shreyas.G, with love ❤️</span>
+          <span>Built by Shreyas.G,</span>
           <span>All rights reserved.</span>
         </div>
       </div>
